@@ -10,6 +10,8 @@ module.exports = defineConfig({
       "**/2-advanced-examples/*.js"
     ],
     viewportWidth: 1920,
-    viewportHeight: 1080
+    viewportHeight: 1080,
+    baseUrl: "https://demoqa.com/",
+    testIsolation: false,
   },
 });
