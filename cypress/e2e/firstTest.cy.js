@@ -1,5 +1,5 @@
 describe('My First Test', () => {
-    it('Navigate to our first page', () => {
-        cy.visit('https://example.cypress.io');
-    })
-})
+	it('Should visit https://example.cypress.io', () => {
+		cy.visit('https://example.cypress.io');
+	});
+});
