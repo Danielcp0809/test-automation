@@ -1,6 +1,10 @@
 describe('Assertions', () => {
-    it('Should include the domain demoqa.com in the URL', () => {
+
+    beforeEach(() => {
         cy.visit('/automation-practice-form');
+    })
+
+    it('Should include the domain demoqa.com in the URL', () => {
         cy.url().should('include', 'demoqa.com');
     });
 
