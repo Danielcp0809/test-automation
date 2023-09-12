@@ -17,7 +17,7 @@ describe('Waiting for elements', () => {
         cy.get('#firstName', {timeout: 6000}).should('be.visible');
     })
 
-    it.only('Should wait for a element for 0 seconds', () => {
+    it('Should wait for a element for 0 seconds', () => {
         cy.get('#firstName', {timeout: 0})
     })
 })
