@@ -12,6 +12,11 @@ describe('Saving elements', () => {
             expect(labels.length).to.equal(16);
             
             cy.wrap(inputs).should('have.length', 15) // using wrap, we can use cypress commands passing a JQuery element
+
+            cy.log('Inputs length', inputs.length) // print a log in the browser
+
+            cy.get('input[placeholder="First Name"]').debug() // print a log in the console, similar to console.log()
         })
+
 	});
 });
