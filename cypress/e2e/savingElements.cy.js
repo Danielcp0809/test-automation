@@ -3,6 +3,7 @@ describe('Saving elements', () => {
 		cy.visit('/automation-practice-form');
         cy.get('input[placeholder="First Name"]');
         cy.get('input[placeholder="First Name"]').parents('form').then(($el) => {
+
             const inputs = $el.find('input');
             const div = $el.find('div');
             const labels = $el.find('label');
