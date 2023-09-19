@@ -109,14 +109,38 @@ describe('Interacting with dropdowns', () => {
 		cy.visit('/select-menu');
 	});
 
-	it.only('Should select an option from a dropdown (select)', () => {
+	it('Should select an option from a dropdown (select)', () => {
 		cy.get('#oldSelectMenu').select(2).should('have.value', 2); // select by index
 		cy.get('#oldSelectMenu').select('Green').should('have.value', 2); // select by label
 	});
 
-	it.only('Should select an option from a advanced dropdown (select + input)', () => {
+	it('Should select an option from a advanced dropdown (select + input)', () => {
 		cy.get('#selectOne').click()
 		cy.get('#react-select-3-option-0-0').click();
 	});
 
+});
+
+describe('Interacting with tables', () => {
+	beforeEach(() => {
+		cy.visit('https://www.w3schools.com/html/html_tables.asp');
+	});
+
+	it.only('Should get the value from a table header', () => {
+		cy.get('#customers').find('th').each(($el) => {
+			cy.log($el.text())
+		})
+
+		cy.get('#customers').find('th').first().invoke('text').should('equal', 'Company')
+		cy.get('#customers').find('th').eq(1).invoke('text').should('equal', 'Contact')
+		cy.get('#customers').find('th').eq(2).invoke('text').should('equal', 'Country')
+	});
+
+	it.only('Should get the number of rows', () => {
+		cy.get('#customers').find('tr').should('have.length', 7)
+	});
+
+	it.only('Should get data for an specific cell', () => {
+		cy.get('#customers').find('tr').eq(1).find('td').eq(1).invoke('text').should('equal', 'Maria Anders')
+	});
 });
