@@ -1,3 +1,8 @@
+beforeEach(() => {
+	Cypress.on('uncaught:exception', (err, runnable) => {
+		return false;
+	});});
+
 describe('Interacting with elements', () => {
 	beforeEach(() => {
 		cy.visit('/buttons');
@@ -40,9 +45,6 @@ describe('Dynamic properties page', () => {
 
 describe('Interacting with inputs', () => {
 	beforeEach(() => {
-		Cypress.on('uncaught:exception', (err, runnable) => {
-			return false;
-		});
 		cy.visit('/automation-practice-form');
 	});
 
@@ -80,13 +82,10 @@ describe('Interacting with inputs', () => {
 
 describe('Extracting data from elements', () => {
 	beforeEach(() => {
-		Cypress.on('uncaught:exception', (err, runnable) => {
-			return false;
-		});
 		cy.visit('/automation-practice-form');
 	});
 
-	it.only('Should get the value from an input', function() {
+	it('Should get the value from an input', function() {
 		cy.get('#firstName').as('name')
 		cy.get('@name').type('Daniel');
 
@@ -97,10 +96,27 @@ describe('Extracting data from elements', () => {
 		cy.get('@name').invoke('val').as('firstNameValue') // invoke is used to get the value of an element, and save it in an alias that will be shared across the test
 	});
 
-	it.only('Should fill the fistName input with the previous test data', function() {
+	it('Should fill the fistName input with the previous test data', function() {
 		cy.get('#firstName').as('name')
 		cy.get('@name').type(this.firstNameValue);
 		cy.get('@name').should('have.value', 'Daniel');
 	});
 
 })
+
+describe('Interacting with dropdowns', () => {
+	beforeEach(() => {
+		cy.visit('/select-menu');
+	});
+
+	it.only('Should select an option from a dropdown (select)', () => {
+		cy.get('#oldSelectMenu').select(2).should('have.value', 2); // select by index
+		cy.get('#oldSelectMenu').select('Green').should('have.value', 2); // select by label
+	});
+
+	it.only('Should select an option from a advanced dropdown (select + input)', () => {
+		cy.get('#selectOne').click()
+		cy.get('#react-select-3-option-0-0').click();
+	});
+
+});
