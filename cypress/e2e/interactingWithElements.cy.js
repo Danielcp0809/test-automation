@@ -62,7 +62,7 @@ describe('Interacting with inputs', () => {
 		cy.get('#firstName').clear(); // selectall is used to select all the text in the input
 	});
 
-	it.only('Should interact with checkboxes and radio buttons', () => {
+	it('Should interact with checkboxes and radio buttons', () => {
 		// radio buttons
 		// cy.get('#gender-radio-1').click({force: true}); // not recommended
 		cy.get('label[for="gender-radio-1"]').click(); // working with radio buttons, we should click on the label
@@ -77,3 +77,30 @@ describe('Interacting with inputs', () => {
 		cy.get('label[for="hobbies-checkbox-1"]').click(); // another click to uncheck
 	});
 });
+
+describe('Extracting data from elements', () => {
+	beforeEach(() => {
+		Cypress.on('uncaught:exception', (err, runnable) => {
+			return false;
+		});
+		cy.visit('/automation-practice-form');
+	});
+
+	it.only('Should get the value from an input', function() {
+		cy.get('#firstName').as('name')
+		cy.get('@name').type('Daniel');
+
+		cy.get('@name').then($name => {
+			expect($name.val()).to.be.equal('Daniel');
+		})
+ 
+		cy.get('@name').invoke('val').as('firstNameValue') // invoke is used to get the value of an element, and save it in an alias that will be shared across the test
+	});
+
+	it.only('Should fill the fistName input with the previous test data', function() {
+		cy.get('#firstName').as('name')
+		cy.get('@name').type(this.firstNameValue);
+		cy.get('@name').should('have.value', 'Daniel');
+	});
+
+})
