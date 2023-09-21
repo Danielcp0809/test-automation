@@ -150,8 +150,22 @@ describe('Interacting with date pickers', () => {
 		cy.visit('https://material.angular.io/components/datepicker/overview');
 	});
 
-	it.only('Should select a date from a date picker', () => {
+	it('Should select a date from a date picker', () => {
 		cy.get('#mat-mdc-form-field-label-0').click();
 		cy.get('#datepicker-overview').find('input').eq(0).type('11/03/2023');
 	});
+});
+
+
+describe('Interacting with drag and drop elements', () => {
+	beforeEach(() => {
+		cy.visit('/dragabble');
+	});
+
+	it.only('Should move to another position', () => {
+		cy.get('#dragBox').trigger('mousedown', { which: 1 }) // Selection of the element to drag
+		.trigger('mousemove', { which: 1, pageX: 600, pageY: 600 }) // movement of the element
+		.trigger('mouseup') // release of the element
+	});
+
 });
