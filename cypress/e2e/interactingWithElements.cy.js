@@ -126,7 +126,7 @@ describe('Interacting with tables', () => {
 		cy.visit('https://www.w3schools.com/html/html_tables.asp');
 	});
 
-	it.only('Should get the value from a table header', () => {
+	it('Should get the value from a table header', () => {
 		cy.get('#customers').find('th').each(($el) => {
 			cy.log($el.text())
 		})
@@ -136,11 +136,22 @@ describe('Interacting with tables', () => {
 		cy.get('#customers').find('th').eq(2).invoke('text').should('equal', 'Country')
 	});
 
-	it.only('Should get the number of rows', () => {
+	it('Should get the number of rows', () => {
 		cy.get('#customers').find('tr').should('have.length', 7)
 	});
 
-	it.only('Should get data for an specific cell', () => {
+	it('Should get data for an specific cell', () => {
 		cy.get('#customers').find('tr').eq(1).find('td').eq(1).invoke('text').should('equal', 'Maria Anders')
+	});
+});
+
+describe('Interacting with date pickers', () => {
+	beforeEach(() => {
+		cy.visit('https://material.angular.io/components/datepicker/overview');
+	});
+
+	it.only('Should select a date from a date picker', () => {
+		cy.get('#mat-mdc-form-field-label-0').click();
+		cy.get('#datepicker-overview').find('input').eq(0).type('11/03/2023');
 	});
 });
